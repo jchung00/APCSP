@@ -1,0 +1,41 @@
+nameList = []
+numberList = []
+ageList = []
+
+def inputUser():
+    name = str(raw_input("What is your name? "))
+    nameList.append(name)
+    phoneNumber = str(raw_input("What is your number? "))
+    isValid = True
+    for i in range(0, len(phoneNumber)):
+        if(int(phoneNumber[i:i+1], 36)>9):
+            isValid = False
+            print("Invalid Input")
+            break
+    if(isValid):
+        numberList.append(phoneNumber)
+    age = str(raw_input("How old are you? "))
+    if(len(age)>0 and len(age)<3):
+        ageList.append(age)
+    else:
+        print("Invalid Input")
+
+def recallUser():
+    lookup = str(raw_input("Please enter the name you want to find: "))
+    if lookup in nameList:
+        index = nameList.index(lookup)
+        print("Name: " + lookup + '\n' + "Phone Number: " + numberList[index] + '\n' + "Age: " + ageList[index] + '\n')
+    else:
+        "Name not found."
+
+def directions():
+    text = str(raw_input("Would you like to input or recall a user? Type '1' to input or '2' to recall: "))
+    if(text == "1"):
+        inputUser()
+    elif(text == "2"):
+        recallUser()
+    else:
+        print("Invalid Input.")
+
+while True:
+    directions()
