@@ -1,0 +1,98 @@
+def binToDec():
+    binary = str(raw_input("Input binary number: "))
+    decimal = 0
+    isBinary = True
+    for i in range(0, len(binary)):
+        if (int(binary[i:i + 1]) != 0 and int(binary[i:i + 1]) != 1):
+            isBinary = False
+            print("Your number is not binary.")
+            break
+        else:
+            tempInt = int(binary[i:i + 1])
+            power = len(binary) - i - 1
+            decimal = decimal + tempInt * (2 ** power)
+    if (isBinary):
+        print("Decimal: " + str(decimal))
+
+def decToBin():
+    decimal = input("Input decimal number: ")
+    binary = []
+    s = ""
+    while (decimal > 0):
+        binary.append(decimal % 2)
+        decimal = decimal / 2
+    for i in reversed(binary):
+        s = s + str(i)
+    print("Binary number: " + s)
+
+def hexToDec():
+    number = str(raw_input("Input hexadecimal number: "))
+    number = number.capitalize()
+    decimal = 0
+    for i in range(0, len(number)):
+        tempInt = int(number[i:i + 1], 16)
+        power = len(number) - i - 1
+        decimal = decimal + tempInt * (16 ** power)
+    print("Decimal: " + str(decimal))
+
+def decToHex():
+    decimal = input("Input decimal number: ")
+    hexadecimal = str(hex(decimal))
+    print("Hexadecimal Number: " + hexadecimal[2:len(hexadecimal)])
+
+def binToHex():
+    binary = str(raw_input("Input binary number: "))
+    decimal = 0
+    isBinary = True
+    for i in range(0, len(binary)):
+        if (int(binary[i:i + 1]) != 0 and int(binary[i:i + 1]) != 1):
+            isBinary = False
+            print("Your number is not binary.")
+            break
+        else:
+            tempInt = int(binary[i:i + 1])
+            power = len(binary) - i - 1
+            decimal = decimal + tempInt * (2 ** power)
+    if(isBinary):
+        hexadecimal = str(hex(decimal))
+        print("Hexadecimal Number: " + hexadecimal[2:len(hexadecimal)])
+
+def hexToBin():
+    number = str(raw_input("Input hexadecimal number: "))
+    number = number.capitalize()
+    decimal = 0
+    for i in range(0, len(number)):
+        tempInt = int(number[i:i + 1], 16)
+        power = len(number) - i - 1
+        decimal = decimal + tempInt * (16 ** power)
+    binary = []
+    s = ""
+    while (decimal > 0):
+        binary.append(decimal % 2)
+        decimal = decimal / 2
+    for i in reversed(binary):
+        s = s + str(i)
+    print("Binary number: " + s)
+
+def directions():
+    text = str(raw_input("Please choose one of the following convertors by typing the corresponding number: " + '\n'
+                         + "Binary to Decimal: '1'" + '\n' + "Decimal to Binary: '2'" + '\n'
+                         + "Hexadecimal to Decimal: '3'" + '\n' + "Decimal to Hexadecimal: '4'" + '\n'
+                         + "Binary to Hexadecimal: '5'" + '\n' + "Hexadecimal to Binary: '6'" + '\n'))
+    if(text=="1"):
+        binToDec()
+    elif(text=="2"):
+        decToBin()
+    elif(text == "3"):
+        hexToDec()
+    elif(text == "4"):
+        decToHex()
+    elif(text == "5"):
+        binToHex()
+    elif(text == "6"):
+        hexToBin()
+    else:
+        print("Invalid Input")
+
+while(True):
+    directions()
