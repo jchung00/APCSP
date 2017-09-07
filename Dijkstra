@@ -1,0 +1,101 @@
+//
+//  ShortestDistance.cpp
+//  nibba
+//  algorithm from geeksforgeeks.org
+//  test case from geeksforgeeks.org
+//  Created by Jae Chung on 7/9/2017.
+//  Copyright © 2017 Jae Chung. All rights reserved.
+//
+
+#include "ShortestDistance.hpp"
+
+#include <stdio.h>
+#include <limits.h>
+
+// Number of vertices in the graph
+#define Vertices 9
+
+
+
+int distances[Vertices];     // Output array. Saves distance from src to each vertex
+
+bool sptSet[Vertices]; //each vertex is true if vertex i is already in shortest path tree
+//or shortest distance from i to src is finalized
+
+// Util function: finds vertex of min distance value, as long as vertices are not already in the sptSet
+int minDistance(int distances[], bool sptSet[])
+{
+    int min = INT_MAX;
+    int min_index = 0;
+    
+    for (int v = 0; v < Vertices; v++){
+        if (sptSet[v] == false && distances[v] <= min){
+            min = distances[v];
+            min_index = v;
+        }
+    }
+    
+    return min_index;
+}
+
+void printAll(int distances[], int n)
+{
+    printf("Vertex   Distance from Source\n");
+    for (int i = 0; i < Vertices; i++)
+        printf("%d \t\t %d\n", i, distances[i]);
+}
+
+// Function for dijkstra's algorithm
+void dijkstra(int graph[Vertices][Vertices], int src)
+{
+    // Defaulting all values in distances and sptSet
+    for (int i = 0; i < Vertices; i++)
+        distances[i] = INT_MAX, sptSet[i] = false;
+    
+    // Trivial
+    distances[src] = 0;
+    
+    // Find shortest path for all vertices
+    for (int count = 0; count < Vertices-1; count++)
+    {
+        // Check above comments for minDistance function
+        int u = minDistance(distances, sptSet);
+        
+        // Index has been processed, so mark it as true
+        sptSet[u] = true;
+        
+        // Update distance values of the adjacent vertices of vertex u
+        for (int v = 0; v < Vertices; v++){
+            
+            // Index v must not already be true in sptSet.
+            // There must be an edge from u to v.
+            // Total sum of distances from src to v through u must be
+            // smaller than the current value of distances[v]
+            if (!sptSet[v] && graph[u][v] != 0 && distances[u] != INT_MAX
+                && distances[u] + graph[u][v] < distances[v]){
+                distances[v] = distances[u] + graph[u][v];
+            }
+        }
+    }
+}
+
+//main executable function
+int main()
+{
+    //test case
+    int graph[Vertices][Vertices] = {{0, 4, 0, 0, 0, 0, 0, 8, 0},
+        {4, 0, 8, 0, 0, 0, 0, 11, 0},
+        {0, 8, 0, 7, 0, 4, 0, 0, 2},
+        {0, 0, 7, 0, 9, 14, 0, 0, 0},
+        {0, 0, 0, 9, 0, 10, 0, 0, 0},
+        {0, 0, 4, 14, 10, 0, 2, 0, 0},
+        {0, 0, 0, 0, 0, 2, 0, 1, 6},
+        {8, 11, 0, 0, 0, 0, 1, 0, 7},
+        {0, 0, 2, 0, 0, 0, 6, 7, 0}
+    };
+    
+    dijkstra(graph, 7);
+    printAll(distances, Vertices);
+    
+    return 0;
+}
