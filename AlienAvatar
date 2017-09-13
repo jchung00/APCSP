@@ -1,0 +1,107 @@
+import java.util.Scanner;
+/**
+ * Describes Alien Object
+ *
+ * @jaechung
+ * @v1.0
+ */
+public class Alien{
+    // instance variables
+    private int headSize;
+    private int bodyType;
+    private int legLength;
+
+    /**
+     * Constructor for objects of class Alien
+     */
+    public Alien(int headSize, int bodyType, int legLength){
+        this.headSize = headSize;
+        this.bodyType = bodyType;
+        this.legLength = legLength;
+    }
+    
+    //accesor methods
+    public int getHead(){
+        return headSize;
+    }
+    
+    public int getBody(){
+        return bodyType;
+    }
+    
+    public int getLeg(){
+        return legLength;
+    }
+    
+    private void printHead(){
+        if(headSize == 1){
+            System.out.println(" --- ");
+            System.out.println("/   \\");
+            System.out.println("\\   /");
+            System.out.println(" --- ");
+        }
+        else{
+            System.out.println("  ------- ");
+            System.out.println(" /       \\");
+            System.out.println("|         |");
+            System.out.println("|         |");
+            System.out.println(" \\       /");
+            System.out.println("  ------- ");
+        }
+    }
+    
+    private void printBody(){
+        if(bodyType == 1){
+            System.out.println("    / \\");
+            for(int i=0; i<3; i++){
+                System.out.println("   |   |");
+            }
+            System.out.println("    ---");
+        }
+        else{
+            System.out.println("    / \\");
+            System.out.println("   /   \\");
+            System.out.println("  /     \\");
+            System.out.println(" /       \\");
+            for(int i=0; i<7; i++){
+                System.out.println("|         |");
+            }
+            System.out.println(" ---------");
+        }
+    }
+    
+    private void printLegs(){
+        if(legLength == 1){
+            for(int i=0; i<3; i++){
+                System.out.println(" |     |");
+            }
+        }
+        else{
+            for(int i=0; i<7; i++){
+                System.out.println(" |     |");
+            }
+        }
+    }
+    
+    //prints Alien
+    public void printAlien(){
+        printHead();
+        printBody();
+        printLegs();
+    }
+    
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Hello! Welcome to the alien avatar generator.");
+        System.out.println();
+        System.out.println("Please type your desired head size. '1' for small, '2' for large.");
+        int head = sc.nextInt();
+        System.out.println("Please type your desired body type. '1' for lean, '2' for buff.");
+        int body = sc.nextInt();
+        System.out.println("Please type your desired leg length. '1' for short, '2' for long.");
+        int legs = sc.nextInt();
+        System.out.println();
+        Alien avatar = new Alien(head, body, legs);
+        avatar.printAlien();
+    }
+}
